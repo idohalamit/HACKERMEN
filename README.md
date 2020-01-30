@@ -8,15 +8,14 @@ Useful Resources:
 - [Technical specs for survivor](https://codeguru.co.il/Xtreme/tech3.htm)                           
 
 Initial Values in Regisers:
->BX,CX,DX,SI,DI,BP - מאופסים.
->EFLAGS - מאופסים.
->AX,IP - מיקום השורד ההתחלתי, ההיסט* האקראי בזירה אליו נטען השורד ע"י מנוע המשחק. (offset)
->CS,DS - מקטע** הזירה המשותף לכלל השורדים. (segment)
->ES - מקטע  לזיכרון המשותף לשורדים מאותה קבוצה.
->SS - מקטע תחילת המחסנית האישית של השורד.
->SP - היסט תחילת המחסנית האישית של השורד.
+- BX,CX,DX,SI,DI,BP - מאופסים.
+-	EFLAGS - מאופסים.
+- AX,IP - מיקום השורד ההתחלתי, ההיסט* האקראי בזירה אליו נטען השורד ע"י מנוע המשחק. (offset)
+- CS,DS - מקטע** הזירה המשותף לכלל השורדים. (segment)
+- ES - מקטע  לזיכרון המשותף לשורדים מאותה קבוצה.
+- SS - מקטע תחילת המחסנית האישית של השורד.
+- SP - היסט תחילת המחסנית האישית של השורד.
 
 *offset, **segment
 
-![GitHub Logo](/images/logo.png)
-Format: ![Alt Text](url)
+![hackerman maymay](https://i.redd.it/vreph5xqwm311.jpg)
