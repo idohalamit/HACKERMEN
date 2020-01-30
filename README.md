@@ -19,7 +19,4 @@ Initial Values in Regisers:
 - SS - מקטע תחילת המחסנית האישית של השורד.
 - SP - היסט תחילת המחסנית האישית של השורד.
 
-*offset = היסט
-**segment = מקטע
-
-
+*offset = היסט, **segment = מקטע
