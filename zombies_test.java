@@ -47,12 +47,6 @@ public class zombies {
 		}
 		
 		
-/*
-000000D9  D1E8              shr ax,1
-000000DB  25AAAA            and ax,0xaaaa
-000000DE  2D1920            sub ax,0x2019
-000000E1  FFE0              jmp ax
-*/
 
 	}
 	
