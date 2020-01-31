@@ -1,0 +1,23 @@
+הקוד משתלט על הזומבי z15a!
+
+
+MOV word[0x2102], 0x3B7C
+MOV word[0x2104], 0x97C5
+MOV word[0x2106], 0xF677
+MOV word[0x2108], 0x9F79
+MOV word[0x210A], 0xC5B7
+
+MOV BX, AX
+ADD AX, zombie
+MOV byte[0xA91], 0xB8
+MOV [0xA92], BX
+MOV word[0xA94], 0xE0FF
+
+;[A91] =
+; mov ax, (my ax + 'zombie')
+; jmp ax
+
+zombie:
+;any code here will be executed
+;by the zombies!
+JMP zombie
