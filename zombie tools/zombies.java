@@ -3,26 +3,42 @@ package valuefinder;
 import java.util.*;
 
 public class zombies {
+	public static short findBestBombingAdr(short[] results) {
+		int mostHits = 0;
+		int bestAdr = 0;
+		for(int curAdr = 0; curAdr<results.length; curAdr++) {
+			int hits = 0;
+			for(int word = curAdr; word < curAdr+255; word += 4) 
+				hits += results[word];
+			if(hits >= mostHits) {
+				mostHits = hits;
+				bestAdr = curAdr;
+			}
+		}
+		System.out.println("most hits: "+mostHits);
+		return bestAdr;
+	}
 	public static void main(String[] args) {
 		Random rando = new Random();
-		for (int c = 100000; c> 0; c--) {
+		short[] results = new short[65536];
+		while (true) {
 			int si = 0;
 
 			int bx = rando.nextInt();
 			bx &= 0xffff;
-			System.out.print(Integer.toHexString(bx));
+			//System.out.print(Integer.toHexString(bx));
 			int cx = rando.nextInt();
 			cx &= 0xffff;
-			System.out.print(", " + Integer.toHexString(cx));
+			//System.out.print(", " + Integer.toHexString(cx));
 			int dx = rando.nextInt();
 			dx &= 0xffff;
-			System.out.print(", " + Integer.toHexString(dx));
+			//System.out.print(", " + Integer.toHexString(dx));
 			int di = rando.nextInt();
 			di &= 0xffff;
-			System.out.print(", " + Integer.toHexString(di));
+			//System.out.print(", " + Integer.toHexString(di));
 
 			int bp = di ^ bx ^ cx ^ dx;
-			System.out.print(", " + Integer.toHexString(bp));
+			//System.out.print(", " + Integer.toHexString(bp));
 
 			int ax = di; // 000000A8 89C7 mov di,ax
 
@@ -53,11 +69,14 @@ public class zombies {
 			ax &= 0xaaaa; // 000000DB 25AAAA and ax,0xaaaa
 			ax -= 0x2019; // 000000DE 2D1920 sub ax,0x2019
 			ax &= 0xffff;
-
-			System.out.println(" : " + Integer.toString(ax)); // 000000E1 FFE0 jmp ax
+			
+			if(results[ax] != Short.MAX_VALUE) results[ax]++;
+			else break;
+			//System.out.println(" : " + Integer.toString(ax)); // 000000E1 FFE0 jmp ax
 
 		}
-
+		
+		System.out.println(Integer.toHexString((int) findBestBombingAdr(results)));
 	}
 
 }

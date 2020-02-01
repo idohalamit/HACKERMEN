@@ -1,0 +1,17 @@
+; the following code steals 
+; ~32.5% of zombie stealing 
+; attempts, and terminates ~32.5%
+; more.
+
+; TODO: also use the second heavy bomb.
+
+push ds
+pop es
+mov bx, ax
+mov di, 0xdfe7
+mov ax, 0x26ff
+mov dx, ax
+mov [0x26ff], bx
+; int 0x86 should be executed
+; at turn 35!
+int 0x86

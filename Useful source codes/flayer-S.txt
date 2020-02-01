@@ -1,11 +1,35 @@
-הקוד משתלט על הזומבי z15a!
+NOP
 
+; This code steals zombies
+; z15e & z15f.
+; TODO combine this code with
+; the ff26 technic.
 
-MOV word[0x2102], 0x3B7C
-MOV word[0x2104], 0x97C5
-MOV word[0x2106], 0xF677
-MOV word[0x2108], 0x9F79
-MOV word[0x210A], 0xC5B7
+MOV word[0x2142], 0x3B7C
+MOV word[0x2152], 0x3B7C
+MOV word[0x2144], 0x97C5
+MOV word[0x2154], 0x97C5
+MOV word[0x2146], 0xF677
+MOV word[0x2156], 0xF677
+MOV word[0x2148], 0x9F79
+MOV word[0x2158], 0x9F79
+MOV word[0x214A], 0xC5B7
+MOV word[0x215A], 0xC5B7
+
+; zombie jump at 35th turn?
+; zombies load at turns
+; 3, 5, 7, 9, 11 !
+; int 0x86 isn't neciserely
+; executed last!
+; they wont jump unless they land
+; on the first byte!
+; best starting adr to bomb 256 cells
+; from? 0xdfe7!!!
+; zombies have the same ES!
+
+mov ax, 0x26ff
+mov dx, ax
+int 0x86
 
 MOV BX, AX
 ADD AX, zombie
@@ -18,6 +42,8 @@ MOV word[0xA94], 0xE0FF
 ; jmp ax
 
 zombie:
+
 ;any code here will be executed
 ;by the zombies!
+
 JMP zombie
