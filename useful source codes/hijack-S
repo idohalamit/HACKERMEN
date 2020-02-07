@@ -1,0 +1,25 @@
+push ds
+pop es
+mov bx, ax
+mov di, 0xdfe7
+mov ax, 0x26ff
+mov dx, ax
+mov [0x26ff], bx
+mov cx, 13
+hijacker:
+nop
+loop hijacker
+nop
+int 0x86
+push cs
+pop es
+mov cx, 250
+zombieloop:
+nop
+dec cx
+jnz zombieloop
+mov dx, 0x1FFF
+mov ax, 0xcccc
+int 0x87
+survivor:
+; find what to do here

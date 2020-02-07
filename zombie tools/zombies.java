@@ -21,7 +21,7 @@ public class zombies {
 	public static void main(String[] args) {
 		Random rando = new Random();
 		short[] results = new short[65536];
-		while (true) {
+		for (int c = 100000; c>0; c--) {
 			int si = 0;
 
 			int bx = rando.nextInt();
@@ -76,7 +76,7 @@ public class zombies {
 
 		}
 		
-		System.out.println(Integer.toHexString((int) findBestBombingAdr(results)));
+		System.out.println("WOW  !! "+Integer.toHexString((int) findBestBombingAdr(results)));
 	}
 
 }
