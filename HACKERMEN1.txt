@@ -1,0 +1,66 @@
+PUSH CS
+POP SS
+MOV SP, AX
+ADD SP, End
+ADD SP, 0x2FE
+
+;   makes the stack so that
+;   A5 will land on IP.
+;   SP = AX+'End'+0xn02-4,
+;   n = number of lines between.
+
+MOV DX, AX
+ADD DX, End
+SUB DX, 0X1A50
+
+MOV SI, AX
+ADD SI, CodeToUpload
+MOV DI, 0x100
+MOV CX, 0X20 ; = ? = X
+REP MOVSW
+
+PUSH DS
+PUSH ES
+POP DS
+POP ES
+XCHG SI, DI
+SUB SI, 0x40 ; = 2X
+SUB DI, 0x41 ; = 2X + 1
+;   the additional 1 is (AB)
+
+;   exchange ES:DI <=> DS:SI
+;   (reverse MOVSW)
+
+MOV [BX], DX
+MOV WORD[BX+2], 0X11A5
+MOV CX, 0x20 ; = ? = X
+ADD AX, CodeToUpload
+SUB AX, 0X1A50
+JMP End
+
+;   now: [DS:BX] = [oES:00] =
+;   (11A5 * 10 - 1A50) +AX +'End'
+;   DS points to ES. BX = 0.
+
+db 0xFF
+    End:
+CALL FAR [BX]
+    CodeToUpload:
+REP MOVSW
+Here:
+ADD SP, 0x5F9
+PUSH BX
+MOV BP, 0x1FFF
+PUSH BP
+PUSH BP
+POP BP
+MOV AX, SP
+SUB AX, 0x1A50
+JC Here
+MOV DI, SP
+INC DI
+ADD SP, 0x2FC
+MOV CX, 0x22 ; = ? = X
+MOV SI, 0x100
+MOV WORD[BX], AX
+CALL AX
