@@ -1,0 +1,81 @@
+; assumptions:
+; cs = 1000
+
+; registers:
+; AL = general perpuse
+; AH = counts bytes checked.
+; BX = points to addr.
+; CH = counts lines til next copy.
+; CL = size of loop.
+; * Used only when CH = 0. 
+; BP = points to start of code.
+; SS = stores ES.
+
+setup: 
+;when integrated into main,
+;MOV SI, 0x(iAX)
+;meanwhile,
+MOV SI, AX
+;delete this ^ later.
+MOV AH, 0x4
+MOV CX, 0x0021
+;UPDATE size of loop/2 (+.5)
+PUSH ES
+POP SS
+ADD SI, check_byte
+MOV BP, SI
+MOV BX, SI
+SUB BL, 0x10
+XOR BH, BH
+MOV DI, 0x200
+REP MOVSW
+MOV CX, 0x2021 ;UPDATE
+
+check_byte:
+
+CMP BYTE[BX], 0xCC
+JE next_line
+
+MOV AL, [BX]
+AND AL, 0xF0
+CMP AL, 0x10
+JNE not_ptr
+
+; if code is here, MSD = 1.
+
+LES DI, [BX+1]
+DEC DI
+STOSW
+STOSW
+
+not_ptr:
+MOV BYTE[BX], 0xCC
+; just for laughs
+INC BX
+DEC AH
+JNZ check_byte
+
+next_line:
+MOV AH, 0x4
+MOV BL, 0x60
+ADD BH, 0x2
+DEC CH
+JNZ check_byte
+
+next_pos:
+;Copy urself 2*CH lines over.
+PUSH SS
+POP DS
+PUSH CS
+POP ES
+ADD BP, 0x4000 ; = 2*CH
+MOV DI, BP
+MOV SI, 0x0200
+REP MOVSW
+PUSH DS
+POP SS
+PUSH ES
+POP DS
+MOV CX, 0x2021 ; UPDATE
+SUB SP, 0x3
+JMP BP
