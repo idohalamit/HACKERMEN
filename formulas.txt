@@ -1,0 +1,7 @@
+	zombie jump turn numbers and LODSW turn numbers:
+	- B = Batch number, w = LODSW number, when first LODSW of every B is w = 1.
+	- for every batch, LODSW is executed 5 times.
+	- LODSWs:
+		- 15B + 2w -14
+	- JMP AXs:
+		- 15B + 20
