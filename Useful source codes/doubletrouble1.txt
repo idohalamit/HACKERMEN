@@ -1,0 +1,13 @@
+mov bx, ax
+mov di, 0x8
+add ax, again
+stosw
+PUSH DS
+POP ES
+MOV DI, bx
+ shoot:
+MOV AX, 0xCCCC
+ again:
+STOSW
+ADD WORD DI, 0xB
+JMP again

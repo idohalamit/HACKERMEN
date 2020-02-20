@@ -1,0 +1,11 @@
+mov bx, ax
+push ds
+push es
+pop ds
+pop es
+mov si, 0x8
+lodsw
+mov di, bx
+add di, end
+jmp ax
+ end:
